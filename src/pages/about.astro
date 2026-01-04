@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About — Cognitogram Labs">
+  <main class="about">
+    <header>
+      <p class="breadcrumb"><a href="/">~</a>/about</p>
+      <h1>Cognitogram Labs</h1>
+    </header>
+
+    <section class="content">
+      <p>
+        We research whole brain emulation—the computational simulation of 
+        neural architecture at sufficient resolution to preserve mind.
+      </p>
+      <p>
+        Our work spans connectome mapping, computational neuroscience, 
+        and the theoretical foundations of consciousness.
+      </p>
+    </section>
+
+    <section class="contact">
+      <p class="label">Contact</p>
+      <a href="mailto:hello@cognitogram.com">hello@cognitogram.com</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .about {
+    min-height: calc(100vh - 200px);
+    padding: 6rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 4rem;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .content {
+    margin-bottom: 4rem;
+  }
+
+  .content p {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+  }
+
+  .contact a {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+  }
+
+  .contact a:hover {
+    border-color: var(--text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .about {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style>

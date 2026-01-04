@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Blog — Cognitogram Labs">
+  <main class="blog">
+    <header>
+      <p class="breadcrumb"><a href="/">~</a>/blog</p>
+      <h1>Research Notes</h1>
+    </header>
+
+    <section class="empty">
+      <p>No posts yet.</p>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .blog {
+    min-height: calc(100vh - 200px);
+    padding: 6rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 4rem;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  .empty p {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    .blog {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style>
