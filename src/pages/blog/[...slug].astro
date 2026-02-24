@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+function getAuthorInfo(author: string | { name: string; url?: string } | undefined) {
+  if (!author) return null;
+  if (typeof author === 'string') {
+    return { name: author, url: undefined };
+  }
+  return author;
+}
+
+const authorInfo = getAuthorInfo(post.data.author);
+---
+
+<Layout title={`${post.data.title} — Cognitogram Labs`}>
+  <article class="post">
+    <header>
+      <p class="breadcrumb">
+        <a href="/">~</a>/<a href="/blog">blog</a>/{post.id}
+      </p>
+      <h1>{post.data.title}</h1>
+      <div class="meta">
+        {authorInfo && (
+          <>
+            {authorInfo.url ? (
+              <a href={authorInfo.url} class="author" target="_blank" rel="noopener">
+                {authorInfo.name}
+              </a>
+            ) : (
+              <span class="author">{authorInfo.name}</span>
+            )}
+            <span class="sep">—</span>
+          </>
+        )}
+        <time datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date)}
+        </time>
+      </div>
+      {post.data.tags && (
+        <div class="tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="content">
+      <Content />
+    </div>
+
+    <footer>
+      <a href="/blog" class="back">← All posts</a>
+    </footer>
+  </article>
+</Layout>
+
+<style>
+  .post {
+    flex: 1;
+    padding: 2rem 3rem 4rem;
+    max-width: 640px;
+    margin: 0 auto;
+    width: 100%;
+    overflow-y: auto;
+  }
+
+  header {
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+  }
+
+  .breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    word-break: break-word;
+  }
+
+  .breadcrumb a {
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+
+  .meta {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .meta time {
+    font-style: italic;
+  }
+
+  .meta .sep {
+    margin: 0 0.15rem;
+  }
+
+  .meta .author {
+    color: var(--text-secondary);
+  }
+
+  .meta a.author {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--border);
+    transition: all 0.15s ease;
+  }
+
+  .meta a.author:hover {
+    color: var(--text);
+    text-decoration-color: var(--text-muted);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  /* Prose styling for markdown content */
+  .content {
+    font-size: 1.125rem;
+    line-height: 1.85;
+    color: var(--text-secondary);
+  }
+
+  .content :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 3rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.015em;
+  }
+
+  .content :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .content :global(a) {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--text-muted);
+    transition: text-decoration-color 0.15s ease;
+  }
+
+  .content :global(a:hover) {
+    text-decoration-color: var(--text);
+  }
+
+  .content :global(strong) {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .content :global(ul),
+  .content :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 1.75rem;
+  }
+
+  .content :global(li) {
+    margin-bottom: 0.6rem;
+  }
+
+  .content :global(li::marker) {
+    color: var(--text-muted);
+  }
+
+  .content :global(blockquote) {
+    border-left: 3px solid var(--text-muted);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .content :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .content :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--code-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    color: var(--text);
+  }
+
+  .content :global(pre) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    background: var(--code-bg);
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+    line-height: 1.6;
+  }
+
+  .content :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  .content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+  }
+
+  .content :global(th),
+  .content :global(td) {
+    border: 1px solid var(--border);
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+  }
+
+  .content :global(th) {
+    font-weight: 500;
+    background: var(--code-bg);
+    color: var(--text);
+  }
+
+  .content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+  }
+
+  .content :global(em) {
+    font-style: italic;
+  }
+
+  /* KaTeX / Math styling */
+  .content :global(.katex-display) {
+    margin: 2rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .content :global(.katex) {
+    font-size: 1.1em;
+  }
+
+  .content :global(.katex-display > .katex) {
+    font-size: 1.15em;
+  }
+
+  footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .back:hover {
+    color: var(--text);
+  }
+
+  @media (max-width: 640px) {
+    .post {
+      padding: 4rem 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .content {
+      font-size: 1.0625rem;
+    }
+  }
+</style>

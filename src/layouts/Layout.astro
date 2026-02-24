@@ -17,6 +17,7 @@ const { title } = Astro.props;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
   </head>
   <body>
     <nav class="nav">
@@ -88,8 +89,9 @@ const { title } = Astro.props;
     --border: rgba(0,0,0,0.08);
   }
 
-  html {
-    scroll-behavior: smooth;
+  html, body {
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
@@ -97,7 +99,8 @@ const { title } = Astro.props;
     background: var(--bg);
     color: var(--text);
     line-height: 1.7;
-    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
   a {
@@ -116,9 +119,11 @@ const { title } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 3rem;
+    padding: 1.5rem 3rem;
     max-width: 720px;
     margin: 0 auto;
+    flex-shrink: 0;
+    width: 100%;
   }
 
   .nav-links {
@@ -157,11 +162,13 @@ const { title } = Astro.props;
   html[data-theme="light"] .icon-moon { display: block; }
 
   .footer {
-    padding: 3rem;
+    padding: 1.5rem 3rem;
     max-width: 720px;
     margin: 0 auto;
     text-align: center;
     border-top: 1px solid var(--border);
+    flex-shrink: 0;
+    width: 100%;
   }
 
   .footer p {

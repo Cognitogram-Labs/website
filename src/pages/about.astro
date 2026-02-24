@@ -10,10 +10,8 @@ import Layout from '../layouts/Layout.astro';
     </header>
 
     <section class="content">
-      <blockquote class="quote">
-        <p>“The real test of a theory is its ability to predict.”</p>
-        <cite>— Richard Feynman</cite>
-      </blockquote>
+      <p class="quote">"The real test of a theory is its ability to predict."</p>
+      <p class="cite">— Richard Feynman</p>
       <p>
         This principle anchors our approach to whole brain emulation. We build AI models that predict
         future neural activity, training large-scale architectures on extensive, perturbed data
@@ -35,14 +33,18 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
   .about {
-    min-height: calc(100vh - 200px);
-    padding: 6rem 3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 3rem;
     max-width: 600px;
     margin: 0 auto;
+    width: 100%;
   }
 
   header {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .breadcrumb {
@@ -67,7 +69,7 @@ import Layout from '../layouts/Layout.astro';
   }
 
   .content {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .content p {
@@ -76,24 +78,19 @@ import Layout from '../layouts/Layout.astro';
     font-size: 1.1rem;
   }
 
-  .quote {
-    margin: 0 0 2rem;
-    padding-left: 1.5rem;
-    border-left: 1px solid var(--border);
-  }
-
-  .quote p {
-    font-size: 1.4rem;
+  .content p.quote {
+    font-size: 1.5rem;
     font-style: italic;
     color: var(--text);
     margin-bottom: 0.5rem;
+    line-height: 1.5;
   }
 
-  .quote cite {
+  .content p.cite {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--text-muted);
-    font-style: normal;
+    margin-bottom: 2rem;
   }
 
   .contact a {
