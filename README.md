@@ -38,16 +38,6 @@ All commands are run from the root of the project, from a terminal:
 | `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `bun astro -- --help` | Get help using the Astro CLI                     |
 
-## Cloudflare Pages Deployment
-
-This repo is configured to deploy from the remote repository through GitHub Actions instead of deploying from a local machine.
-
-1. In GitHub, add repository secrets:
-   - `CLOUDFLARE_API_TOKEN`
-   - `CLOUDFLARE_ACCOUNT_ID`
-2. Push to `main` to trigger deployment to the `cognitogram-website` Cloudflare Pages project.
-3. (Optional) Local deploy is still available with `bun run deploy:local`.
-
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

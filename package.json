@@ -6,16 +6,11 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "deploy:local": "astro build && wrangler pages deploy"
+    "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.12",
     "astro": "^5.16.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"
-  },
-  "devDependencies": {
-    "wrangler": "^4.51.0"
   }
 }
