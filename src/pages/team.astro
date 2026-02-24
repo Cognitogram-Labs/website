@@ -65,6 +65,30 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </article>
     </section>
+
+    <p class="section-label">Advisors</p>
+
+    <section class="grid advisors-grid">
+      <article class="card">
+        <div class="avatar">
+          <img src="/team/matt-thomson.jpg" alt="Matt Thomson" width="320" height="320" loading="lazy" />
+        </div>
+        <div class="meta">
+          <h2>Matt Thomson</h2>
+          <p class="role">Caltech Thomson Lab</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="avatar">
+          <img src="/team/david-prober.avif" alt="David Prober" width="320" height="320" loading="lazy" />
+        </div>
+        <div class="meta">
+          <h2>David Prober</h2>
+          <p class="role">Caltech Prober Lab</p>
+        </div>
+      </article>
+    </section>
   </main>
 </Layout>
 
@@ -118,6 +142,25 @@ import Layout from '../layouts/Layout.astro';
     gap: 2rem;
   }
 
+  .section-label {
+    margin: 2.75rem 0 1rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    opacity: 0.6;
+    text-align: center;
+  }
+
+  .advisors-grid {
+    justify-items: center;
+  }
+
+  .advisors-grid .card {
+    width: min(100%, 180px);
+  }
+
   .card {
     display: flex;
     flex-direction: column;
@@ -142,6 +185,12 @@ import Layout from '../layouts/Layout.astro';
     font-weight: 400;
     letter-spacing: -0.01em;
     margin-bottom: 0.25rem;
+  }
+
+  .role {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
   }
 
   .site {
